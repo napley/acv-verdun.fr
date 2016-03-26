@@ -1,0 +1,68 @@
+{% extends 'layout_site.html.twig' %}
+
+{% block title %}
+    {{ actualite.title|e }} | acv-verdun.fr
+{% endblock %}
+
+{% block description %}
+    {{ actualite.contenu|raw|striptags }}
+{% endblock %}
+
+{% block titre_page %}
+    <h1>{{ actualite.title|e }}</h1>
+{% endblock %}
+
+{% block suite_crumbs %}
+    <li>Article / </li>
+    <li>{{ actualite.title|e }}</li>
+    {% endblock %} 
+
+{% block content %}
+    <div class="panel-box">
+        <div class="titles">
+            <h4>{{ actualite.title|e }}</h4>
+            <span class="tag-course">{% for category in actualite.categories %}
+                <span class="label label-default">{{ category.category.abrev }}</span>
+            {% endfor %}</span>
+        </div>
+        <div class="post-item single-news">
+            <div class="row">
+                <div class="col-md-12">
+                    <p class="data-info"><i class="fa fa-clock-o"></i> {{ actualite.createdAt|date("d/m/Y") }} | </p>
+                    {{ infosites('article_tracking_partage')|replace({'((url))': path('actualite', {'actualite': actualite.id}), '((title))': actualite.title|e }) | raw }}
+                </div>
+                <div class="col-md-12 padding-top-mini">
+                    {{ actualite.contenu|circuitFilter|raw }}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--<div class="panel-box">
+        <div class="titles">
+            <h4>Commentaires</h4>
+        </div>         
+        <div class="post-item single-news">
+            <div class="row">
+                <div class="col-md-12">
+                    <div id="disqus_thread"></div>
+                </div>
+            </div>
+        </div>    
+        <script type="text/javascript">
+            /* * * CONFIGURATION VARIABLES * * */
+            var disqus_shortname = 'acvverdunfr';
+            var disqus_identifier = '{{ actualite.id }}';
+
+            /* * * DON'T EDIT BELOW THIS LINE * * */
+            (function () {
+                var dsq = document.createElement('script');
+                dsq.type = 'text/javascript';
+                dsq.async = true;
+                dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+    </div>-->
+{% endblock %}

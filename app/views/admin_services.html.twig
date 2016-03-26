@@ -1,0 +1,44 @@
+{% extends 'admin_layout.html.twig' %}
+{% set active = 'admin' %}
+{% set adminActive = 'services' %}
+
+{% block titre_page %}
+    <h1>Service externe du site</h1>
+{% endblock %}
+
+{% block content %}
+    <div id="main" role="main" class="container">
+        <a href="{{ path('admin_services_add') }}" class="btn btn-inverse">{{ "Ajout d'un service"|trans }}</a>
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th> {{ 'Nom'|trans }} </th>
+                    <th> {{ 'Description'|trans }} </th>
+                    <th> {{ 'Utilisateur'|trans }} </th>
+                    <th> {{ 'Mot de passe'|trans }} </th>
+                    <th> {{ 'Operations'|trans }} </th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for service in services %}
+                    <tr>
+                        <td> {{ service.title|e }} </td>
+                        <td> {{ service.description|e }} </td>
+                        <td> {{ service.utilisateur|e }} </td>
+                        <td> {{ service.password|e }} </td>
+                        <td>
+                            <a href="{{ path('admin_services_edit', {'service': service.id}) }}">Modifier</a> / 
+                            <a href="{{ path('admin_services_delete', {'service': service.id}) }}" onclick="return confirm('Etes vous sur de vouloir le supprimer ?')">Supprimer</a>
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="5">{{ 'Aucun service n\a encore été crée.'|trans }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        {% include "pagination.html.twig" %}
+    </div>
+{% endblock %}

@@ -1,0 +1,34 @@
+{% extends 'layout_site.html.twig' %}
+
+{% block title %}
+    {{ page.title|e }} | acv-verdun.fr
+{% endblock %}
+
+{% block description %}
+    {{ page.description|raw }}
+{% endblock %}
+
+{% block titre_page %}
+    <h1>{{ page.title|e }}</h1>
+{% endblock %}
+
+{% block suite_crumbs %}
+    <li>Page / </li>
+    <li>{{ page.title|e }}</li>
+    {% endblock %} 
+
+{% block content %}
+    <div class="panel-box">
+        <div class="titles">
+            <h4>{{ page.title|e }}</h4>
+        </div>
+        <div class="post-item single-news">
+            <div class="row">
+                <div class="col-md-12 padding-top-mini">
+                    {{ page.description|raw }}
+                    {{ page.contenu|raw }}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

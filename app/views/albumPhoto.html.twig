@@ -1,0 +1,105 @@
+{% extends 'layout_site.html.twig' %}
+{% set active = 'homepage' %}
+
+{% block title %}
+    {{ albumPhoto.title | e }} | acv-verdun.fr
+{% endblock %}
+
+{% block description %}
+    Les photos de l'album photo {{ albumPhoto.title|e }} du club ACV de verdun sur le doubs.
+{% endblock %}
+
+{% block titre_page %}
+    <h1>{{ albumPhoto.title | e }}</h1>
+{% endblock %}
+
+{% block suite_crumbs %}
+    <li><a href="{{ path('albumPhotos') }}">Album photo</a></li>
+    <li>/</li>
+    <li>{{ albumPhoto.title | e }}</li>
+{% endblock %}           
+
+{% block content %}
+    <div class="panel-box">
+        <div class="titles">
+            <h4>{{ albumPhoto.title|e }}</h4>
+            <span class="tag-course">{% for category in albumPhoto.categories %}
+            <span class="label label-default">{{ category.category.abrev }}</span>
+            {% endfor %}</span>
+        </div>
+        <div class="post-item single-news">
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-12">
+                    {{ infosites('article_tracking_partage')|replace({'((url))': path('albumPhoto', {'albumPhoto': albumPhoto.id}), '((title))': albumPhoto.title|e }) | raw }}
+                    {{ albumPhoto.description | raw }}
+                </div>
+            </div>
+            <div class="row portfolioContainer isotope">
+                {% for photo in albumPhoto.getPhotos() %}
+                <div class="col-xs-12 col-sm-6 col-md-6">
+                    <div class="img-hover">
+                        <img class="img-responsive" alt="" src="{{ photo.thumbnail }}">
+                        <div class="overlay"><a class="fancybox" rel="group" href="{{ photo.file }}">+</a></div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+            
+    <!--<div class="panel-box">
+        <div class="titles">
+            <h4>Commentaires</h4>
+        </div>         
+        <div class="post-item single-news">
+            <div class="row">
+                <div class="col-md-12">
+                    <div id="disqus_thread"></div>
+                </div>
+            </div>
+        </div>    
+        <script type="text/javascript">
+            /* * * CONFIGURATION VARIABLES * * */
+            var disqus_shortname = 'acvverdunfr';
+            var disqus_identifier = 'a{{ albumPhoto.id }}';
+
+            /* * * DON'T EDIT BELOW THIS LINE * * */
+            (function () {
+                var dsq = document.createElement('script');
+                dsq.type = 'text/javascript';
+                dsq.async = true;
+                dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+    </div>-->
+{% endblock %}
+
+{% block extrascript %}
+<script src="{{ app.request.basepath }}/js/isotope.pkgd.min.js"></script>
+<script src="{{ app.request.basepath }}/js/jquery.fancybox.js"></script>
+<script src="{{ app.request.basepath }}/js/imagesloaded.pkgd.min.js"></script>
+<script type="text/javascript">
+
+    // initialize Isotope
+    var iso = new Isotope( '.isotope', {
+      transitionDuration: 0
+    });
+    // layout Isotope again after all images have loaded
+    imagesLoaded( '.isotope', function() {
+      iso.layout();
+    });
+
+    $(".fancybox").fancybox({
+        openEffect  : 'elastic',
+        closeEffect : 'elastic',
+
+        helpers : {
+          title : {
+            type : 'inside'
+          }
+        }
+    });
+</script>
+{% endblock %}

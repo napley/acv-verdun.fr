@@ -1,0 +1,39 @@
+{% extends 'admin_layout.html.twig' %}
+{% set active = 'admin' %}
+{% set adminActive = 'widgets' %}
+
+{% block titre_page %}
+    <h1>Gestion de l'ordre des widgets</h1>
+{% endblock %}
+
+{% block content %}
+    <div id="main" role="main" class="container">
+        <form class="form-horizontal" method="post" action="">
+            <div class="col-md-6">
+                <ul aria-dropeffect="move" data-sortable-id="0" class="ml4 js-sortable-connected sortable list flex flex-column list-reset">
+                    <li class="disabled p1 mb1 muted">Widget désactivé</li>
+                    {% for widget in widgets if widget.rank is null %}
+                        <li aria-grabbed="false" role="option" draggable="true" data-item-id="{{ widget.id }}" data-item-sortable-id="0" class="p1 mb1 navy bg-yellow" style="position: relative; z-index: 10; display: list-item;">
+                            {{ widget.title }}
+                            <input type="hidden" name="widget[{{ widget.id }}]" value="0"/>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class="col-md-6">
+                <ul id="liste-actif" aria-dropeffect="move" data-sortable-id="0" class="ml4 js-sortable-connected sortable list flex flex-column list-reset">
+                    <li class="disabled p1 mb1 muted">Widget activé</li>
+                    {% for widget in widgets if widget.rank is not null %}
+                        <li aria-grabbed="false" role="option" draggable="true" data-item-id="{{ widget.id }}" data-item-sortable-id="0" class="p1 mb1 navy bg-yellow" style="position: relative; z-index: 10; display: list-item;">
+                            {{ widget.title }}
+                            <input type="hidden" name="widget[{{ widget.id }}]" value="{{ widget.rank }}"/>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class="col-md-12">
+                <button id="page_Enregistrer" name="page[Enregistrer]" type="submit">Enregistrer</button>
+            </div>
+        </form>
+    </div>
+{% endblock %}

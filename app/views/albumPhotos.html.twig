@@ -1,0 +1,86 @@
+{% extends 'layout_site.html.twig' %}
+{% set active = 'homepage' %}
+
+{% block title %}
+    Tous les albums photo | acv-verdun.fr
+{% endblock %}
+
+{% block description %}
+    Tous les albums photo du club cycliste ACV de verdun sur le doubs.
+{% endblock %}
+
+{% block titre_page %}
+    <h1>Album Photo</h1>
+{% endblock %}
+
+{% block suite_crumbs %}
+    <li>Tous les albums photo</li>
+{% endblock %}           
+
+{% block content %}
+    <div class="portfolioFilter">
+        <a class="{% if currentYear is null %} current {% endif %}" data-filter="*" href="{{ path('albumPhotos') }}">Tout afficher</a>
+        {% for annee in filtreAnnee %}
+            <a href="?annee={{ annee }}" class="{% if currentYear == annee  %} current {% endif %}">{{ annee }}</a>
+        {% endfor %}
+    </div>
+    <div class="row">
+        <div class="events-carousel events-no-carousel isotope">
+            {% for newestAlbumPhoto in groupedNewestAlbumPhotos %}
+                {% for albumPhoto in newestAlbumPhoto %}
+                    <div class="col-xs-6 col-sm-6 col-md-4">
+                        <div class="header-post">
+                            <div class="date">
+                                <span>{{ albumPhoto.createdAt|date("d/m") }}</span>
+                                {{ albumPhoto.createdAt|date("Y") }}
+                            </div>
+                            <a href="{{ path('albumPhoto', {'albumPhoto': albumPhoto.id}) }}"><img alt="" src="{{ albumPhoto.getFirstPhoto() }}"></a>
+                            <div class="meta-tag">
+                                <ul>
+                                    <li class="text-right">{{ albumPhoto.getNbPhotos() }} <i class="fa fa-picture-o fa-inverse"></i></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="info-post">
+                            <h4><a href="{{ path('albumPhoto', {'albumPhoto': albumPhoto.id}) }}">{{ albumPhoto.title|e }}</a></h4>
+                            <span class="tag-course">{% for category in albumPhoto.categories %}
+                            <span class="label label-default">{{ category.category.abrev }}</span>
+                            {% endfor %}</span>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% endfor %}
+        </div>
+    </div>
+    
+    
+    {% include "pagination.html.twig" %}
+{% endblock %}
+    
+    
+{% block extrascript %}    
+    <script src="{{ app.request.basepath }}/js/isotope.pkgd.min.js"></script>
+    <script src="{{ app.request.basepath }}/js/imagesloaded.pkgd.min.js"></script>
+    <script type="text/javascript">
+        
+        // initialize Isotope
+        var iso = new Isotope( '.isotope', {
+          transitionDuration: 0
+        });
+        // layout Isotope again after all images have loaded
+        imagesLoaded( '.isotope', function() {
+          iso.layout();
+        });
+
+        /* * * CONFIGURATION VARIABLES * * */
+        var disqus_shortname = 'acvverdunfr';
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function () {
+            var s = document.createElement('script'); s.async = true;
+            s.type = 'text/javascript';
+            s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+            (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+        }());
+    </script>
+{% endblock %}

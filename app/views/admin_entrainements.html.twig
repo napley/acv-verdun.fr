@@ -1,0 +1,40 @@
+{% extends 'admin_layout.html.twig' %}
+{% set active = 'admin' %}
+{% set adminActive = 'entrainements' %}
+
+{% block titre_page %}
+    <h1>Gestion des circuits</h1>
+{% endblock %}
+
+{% block content %}
+    <div id="main" role="main" class="container">
+        <a href="{{ path('admin_entrainement_add') }}" class="btn btn-inverse">{{ 'Ajouter un circuit'|trans }}</a>
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th> {{ 'Numéro'|trans }} </th>
+                    <th> {{ 'Titre'|trans }} </th>
+                    <th> {{ 'Operations'|trans }} </th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for entrainement in entrainements %}
+                    <tr>
+                        <td> {{ entrainement.id }} </td>
+                        <td> {{ entrainement.title|e }} </td>
+                        <td>
+                            <a href="{{ path('admin_entrainement_edit', {'entrainement': entrainement.id}) }}">Modifier</a> / 
+                            <a href="{{ path('admin_entrainement_delete', {'entrainement': entrainement.id}) }}" onclick="return confirm('Etes vous sur de vouloir le supprimer ?')">Supprimer</a>
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="3">{{ 'Aucun circuit n\'a été crée encore.'|trans }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        {% include "pagination.html.twig" %}
+    </div>
+{% endblock %}

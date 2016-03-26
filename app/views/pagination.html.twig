@@ -1,0 +1,17 @@
+{% if numPages > 1 %}
+    <div>
+        <ul class="pagination">
+            <li {% if currentPage == 1 %}class="disabled"{% endif %}>
+                <a href="{{ here }}?page={{ currentPage - 1 }}{%if currentYear is defined %}&annee={{ currentYear }}{% endif %}">{{ 'Précédent'|trans }}</a>
+            </li>
+            {% for i in 1..numPages %}
+                <li {% if currentPage == i %}class="active"{% endif %}>
+                    <a href="{{ here }}?page={{ i }}{%if currentYear is defined %}&annee={{ currentYear }}{% endif %}">{{ i }}</a>
+                </li>
+            {% endfor %}
+            <li {% if currentPage == numPages %}class="disabled"{% endif %}>
+                <a href="{{ here }}?page={{ currentPage + 1 }}{%if currentYear is defined %}&annee={{ currentYear }}{% endif %}">{{ 'Suivant'|trans }}</a>
+            </li>
+        </ul>
+    </div>
+{% endif %}

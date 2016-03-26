@@ -1,0 +1,30 @@
+{% extends 'layout.html.twig' %}
+{% set active = 'actualites' %}
+
+{% block content %}
+    <div id="main" role="main" class="container">
+        {% for actualiteGroup in groupedActualites %}
+            <div class="row">
+                {% for actualite in actualiteGroup %}
+                    <div class="span3 actualite_listing">
+                        <a href="{{ path('actualite', {'actualite': actualite.id}) }}" class="artwork_listing">
+                            <h4>{{ actualite.title|e }}</h4>
+                        </a>
+                        <div class="actualite_desc_listing">
+                            
+                            {{ actualite.description|raw }}
+                            <div id="actualite_link">
+                                <a href="{{ path('actualite', {'actualite': actualite.id}) }}">
+                                {{ 'See article'|trans }}
+                                </a>
+                            </div>
+                        </div>
+                        <p>Ecrit par : {{ actualite.user.nom|e }} {{ actualite.user.prenom|e }}</p>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endfor %}
+
+        {% include "pagination.html.twig" %}
+    </div>
+{% endblock %}

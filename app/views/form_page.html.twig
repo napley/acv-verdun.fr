@@ -1,0 +1,133 @@
+{% extends 'admin_layout.html.twig' %}
+{% set active = 'form' %}
+
+{% block titre_page %}
+    <h1>{{ title }}</h1>
+{% endblock %}
+
+{% block content %}
+  <div id="main" role="main" class="container">
+    {% set alertTypeAvaillable = [ 'info', 'success', 'warning', 'error'] %}
+    {% for alert in alertTypeAvaillable %}
+        {% for message in app.session.getFlashBag.get(alert) %}
+            <div class="alert alert-{{ alert }}" >
+                <button class="close" data-dismiss="alert">×</button>
+                {{ message|trans }}
+            </div>
+        {% endfor %}
+    {% endfor %}
+
+    <h1>{{ title }}</h1>
+
+    <form action="" method="post" {{ form_enctype(form) }} class="form-horizontal">
+        {{ form_row(form.title) }}
+        {{ form_row(form.description) }}
+        {{ form_row(form.contenu) }}
+        <p></p>
+        <h2>Gestion des sous-pages</h2>
+        <table id="tableUnderPage" class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Titre</th>
+                    <th>Lien</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% set rank = underPages|length %}
+                {% for underPage in underPages %}
+                <tr>
+                    <td class="titre"><input placeholder="Titre" type="text" name="underPages[Titre][]" value="{{ underPage.title }}"/></td>
+                    <td class="lien"><input placeholder="Lien" type="text" name="underPages[Lien][]" value="{{ underPage.link }}"/>
+                        <button type="button" onclick="selectFileAuto(this)" class="btn btn-default" aria-label="Choisir un fichier">
+                            <span aria-hidden="true"><i class="fa fa-file"></i></span>
+                        </button>
+                        <select onclick="addPage(this)">
+                            <option value="">Une page</option>
+                            {% for Page in pages %}
+                                <option value="/page/{{ Page.title }}">{{ Page.title }}</option>
+                            {% endfor %}
+                        </select>
+                    </td>
+                    <td>
+                        <button onclick="upUnderPage(this)" type="button" class="btn btn-default" aria-label="Monter">
+                            <span aria-hidden="true"><i class="fa fa-chevron-up"></i></span>
+                        </button>
+                        <button onclick="downUnderPage(this)" type="button" class="btn btn-default" aria-label="Descendre">
+                            <span aria-hidden="true"><i class="fa fa-chevron-down"></i></span>
+                        </button>
+                        <button onclick="deleteUnderPage(this)" type="button" class="btn btn-default" aria-label="Supprimer">
+                            <span aria-hidden="true"><i class="fa fa-trash"></i></span>
+                        </button>
+                    </td>
+                </tr>
+                {% else %}
+                <tr>
+                    <td><input placeholder="Titre" type="text" name="underPages[Titre][]" value=""/></td>
+                    <td><input placeholder="Lien" type="text" name="underPages[Lien][]" value=""/>
+                        <button type="button" onclick="selectFileAuto(this)" class="btn btn-default" aria-label="Choisir un fichier">
+                            <span aria-hidden="true"><i class="fa fa-file"></i></span>
+                        </button>
+                        <select onclick="addPage(this)">
+                            <option value="">Une page</option>
+                            {% for Page in pages %}
+                                <option value="/page/{{ Page.title }}">{{ Page.title }}</option>
+                            {% endfor %}
+                        </select>
+                    </td>
+                    <td>
+                        <button onclick="upUnderPage(this)" type="button" class="btn btn-default" aria-label="Monter">
+                            <span aria-hidden="true"><i class="fa fa-chevron-up"></i></span>
+                        </button>
+                        <button onclick="downUnderPage(this)" type="button" class="btn btn-default" aria-label="Descendre">
+                            <span aria-hidden="true"><i class="fa fa-chevron-down"></i></span>
+                        </button>
+                        <button onclick="deleteUnderPage(this)" type="button" class="btn btn-default" aria-label="Supprimer">
+                            <span aria-hidden="true"><i class="fa fa-trash"></i></span>
+                        </button>
+                    </td>
+                </tr>
+                {% endfor %}
+                <tr class="hidden copyTr">
+                    <td><input placeholder="Titre" type="text" name="underPages[Titre][]" value=""/></td>
+                    <td>
+                        <input placeholder="Lien" type="text" name="underPages[Lien][]" value=""/>
+                        <button type="button" onclick="selectFileAuto(this)" class="btn btn-default" aria-label="Choisir un fichier">
+                            <span aria-hidden="true"><i class="fa fa-file"></i></span>
+                        </button>
+                        <select onclick="addPage(this)">
+                            <option value="">Une page</option>
+                            {% for Page in pages %}
+                                <option value="/page/{{ Page.title }}">{{ Page.title }}</option>
+                            {% endfor %}
+                        </select>
+                    </td>
+                    <td>
+                        <button onclick="upUnderPage(this)" type="button" class="btn btn-default" aria-label="Monter">
+                            <span aria-hidden="true"><i class="fa fa-chevron-up"></i></span>
+                        </button>
+                        <button onclick="downUnderPage(this)" type="button" class="btn btn-default" aria-label="Descendre">
+                            <span aria-hidden="true"><i class="fa fa-chevron-down"></i></span>
+                        </button>
+                        <button onclick="deleteUnderPage(this)" type="button" class="btn btn-default" aria-label="Supprimer">
+                            <span aria-hidden="true"><i class="fa fa-trash"></i></span>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="3">
+                        <button id="add_under_page" type="button" class="btn btn-default" aria-label="Ajouter">
+                            <span aria-hidden="true">Ajouter une sous-page</span>
+                        </button>
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+        
+        {{ form_rest(form) }}
+    </form>
+    <a href="{{ path(link) }}">Retour à la liste</a>
+</div>
+{% endblock %}

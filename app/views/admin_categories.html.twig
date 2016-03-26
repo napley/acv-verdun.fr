@@ -1,0 +1,41 @@
+{% extends 'admin_layout.html.twig' %}
+{% set active = 'admin' %}
+{% set adminActive = 'categories' %}
+
+{% block titre_page %}
+    <h1>Gestion des catégories</h1>
+{% endblock %}
+
+{% block content %}
+    <div id="main" role="main" class="container">
+        <a href="{{ path('admin_category_add') }}" class="btn btn-inverse">{{ "Ajout d'une catégorie"|trans }}</a>
+        <a href="{{ path('admin_pages_order') }}" class="btn btn-inverse">{{ "Gestion de l'ordre des pages"|trans }}</a>
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th> {{ 'Titre'|trans }} </th>
+                    <th> {{ 'Abrev'|trans }} </th>
+                    <th> {{ 'Operations'|trans }} </th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for category in categories %}
+                    <tr>
+                        <td> {{ category.title|e }} </td>
+                        <td> {{ category.abrev|e }} </td>
+                        <td>
+                            <a href="{{ path('admin_category_edit', {'category': category.id}) }}">Modifier</a> / 
+                            <a href="{{ path('admin_category_delete', {'category': category.id}) }}" onclick="return confirm('Etes vous sur de vouloir le supprimer ?')">Supprimer</a>
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="4">{{ 'Aucune catégorie n\a encore été crée.'|trans }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        {% include "pagination.html.twig" %}
+    </div>
+{% endblock %}

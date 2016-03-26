@@ -1,0 +1,7 @@
+app/cache/*
+app/config/prod.php
+app/db_dump.sql
+web/less/*
+web/scss/*
+web/img/*
+acv-verdun.new.zip

@@ -1,0 +1,40 @@
+{% extends 'admin_layout.html.twig' %}
+{% set active = 'form' %}
+
+{% block titre_page %}
+    <h1>{{ title }}</h1>
+{% endblock %}
+
+{% block content %}
+  <div id="main" role="main" class="container">
+    {% set alertTypeAvaillable = [ 'info', 'success', 'warning', 'error'] %}
+    {% for alert in alertTypeAvaillable %}
+        {% for message in app.session.getFlashBag.get(alert) %}
+            <div class="alert alert-{{ alert }}" >
+                <button class="close" data-dismiss="alert">×</button>
+                {{ message|trans }}
+            </div>
+        {% endfor %}
+    {% endfor %}
+
+    <h1>{{ title }}</h1>
+
+    <form action="" method="post" {{ form_enctype(form) }} class="form-horizontal">
+        {{ form_row(form.title) }}
+        {{ form_row(form.contenu) }}
+
+        <div class="control-group">
+        <label class="control-label">Catégories</label> <span id="selectall" class="btn btn-default">Tous</span> / <span id="unselectall" class="btn btn-default">Aucun</span>
+        <ul class="liste-cat-form">
+        {% for catActPre in catActPres %}
+            <li><input class="checkboxCat" type="checkbox" name="categories[]" id="categories{{ loop.index0 }}" value="{{ catActPre.category.id }}" {% if catActPre.categoryActualite is defined %} checked="CHECKED" {% endif %} /><label for="categories{{ loop.index0 }}">{{ catActPre.category.title|e }}</label></li>
+        {% endfor %}
+        </ul>
+        </div>
+        
+        {{ form_rest(form) }}
+    </form>
+    <a href="{{ path(link) }}">Retour à la liste</a>
+  </div>
+
+{% endblock %}

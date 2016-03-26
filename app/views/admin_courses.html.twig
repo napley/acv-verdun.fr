@@ -1,0 +1,45 @@
+{% extends 'admin_layout.html.twig' %}
+{% set active = 'admin' %}
+{% set adminActive = 'courses' %}
+{% set titre = 'courses' %}
+
+{% block titre_page %}
+    <h1>Gestion des courses</h1>
+{% endblock %}
+
+{% block content %}
+    <div id="main" role="main" class="container">
+        <a href="{{ path('admin_course_add') }}" class="btn btn-inverse">{{ 'Ajouter une course'|trans }}</a>
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th> {{ 'Nom'|trans }} </th>
+                    <th> {{ 'Lien'|trans }} </th>
+                    <th> {{ 'Commence à'|trans }} </th>
+                    <th> {{ 'Fini à'|trans }} </th>
+                    <th> {{ 'Operations'|trans }} </th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for course in courses %}
+                    <tr>
+                        <td> {{ course.title|e }} </td>
+                        <td> {{ course.link|e }} </td>
+                        <td> {{ course.startAt|date("d/m/Y H:i:s") }} </td>
+                        <td> {{ course.endAt|date("d/m/Y H:i:s") }} </td>
+                        <td>
+                            <a href="{{ path('admin_course_edit', {'course': course.id}) }}">Modifier</a> / 
+                            <a href="{{ path('admin_course_delete', {'course': course.id}) }}" onclick="return confirm('Etes vous sur de vouloir le supprimer ?')">Supprimer</a>
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="5">{{ 'Aucune course n\'a été crée.'|trans }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        {% include "pagination.html.twig" %}
+    </div>
+{% endblock %}

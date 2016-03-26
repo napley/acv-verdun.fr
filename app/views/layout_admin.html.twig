@@ -1,0 +1,85 @@
+{% extends 'layout.html.twig' %}
+
+{% block head %}
+    <meta charset="utf-8">
+    <title>{{ 'acv-verdun administration'|trans }}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="{{ app.request.basepath }}/css/bootstrap.css" rel="stylesheet" media="screen">
+    <link href="{{ app.request.basepath }}/css/main.css" rel="stylesheet" type='text/css'>
+    <link href="{{ app.request.basepath }}/css/jquery-ui.css" rel="stylesheet" type='text/css'>
+    <link rel="stylesheet" href="{{ app.request.basepath }}/css/font-awesome.min.css">
+    <link rel="stylesheet" href="{{ app.request.basepath }}/css/jquery.fileupload.css">
+    <link rel="stylesheet" href="{{ app.request.basepath }}/css/jquery.fileupload-ui.css">
+{% endblock %}
+
+{% block menu %}
+{% endblock %}
+
+{% block titre_page %}
+    <h1>Single News</h1>
+{% endblock %}
+
+{% block layout_content %}
+<div class="col-md-12">
+    {% block content %}
+    {% endblock %}
+</div>
+{% endblock %}
+
+{% block javscript %}
+<script src="{{ app.request.basepath }}/js/jquery.js"></script>
+<script src="{{ app.request.basepath }}/js/bootstrap.min.js"></script>
+<script src="{{ app.request.basepath }}/ckeditor/ckeditor.js"></script>
+<script src="{{ app.request.basepath }}/ckeditor/adapters/jquery.js"></script>
+<script src="{{ app.request.basepath }}/js/jquery-ui.min.js"></script>
+<script src="{{ app.request.basepath }}/js/tinynav.min.js"></script>
+<script src="{{ app.request.basepath }}/js/hoverIntent.js"></script>
+<script src="{{ app.request.basepath }}/js/superfish.js"></script>
+<script src="{{ app.request.basepath }}/js/html5.sortable.js"></script>
+<script src="{{ app.request.basepath }}/js/main.js"></script>
+<script type="text/javascript">
+    $( 'textarea.editor' ).ckeditor();
+
+    $.datepicker.setDefaults($.datepicker.regional['fr']);
+    var optionsDate = {
+      changeMonth: true,
+      changeYear: true,
+      showOtherMonths: true,
+      firstDay: 1 ,
+      selectOtherMonths: true,
+      closeText: 'Fermer',
+      prevText: 'Précédent',
+      nextText: 'Suivant',
+      currentText: 'Aujourd\'hui',
+      monthNames: ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'],
+      monthNamesShort: ['Janv.', 'Févr.', 'Mars', 'Avril', 'Mai', 'Juin', 'Juil.', 'Août', 'Sept.', 'Oct.', 'Nov.', 'Déc.'],
+      dayNames: ['Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'],
+      dayNamesShort: ['Dim.', 'Lun.', 'Mar.', 'Mer.', 'Jeu.', 'Ven.', 'Sam.'],
+      dayNamesMin: ['D', 'L', 'M', 'M', 'J', 'V', 'S'],
+      weekHeader: 'Sem.',
+      dateFormat: 'dd/mm/yy'
+    };
+    $( "#course_start_at_date" ).datepicker(optionsDate);
+    $( "#course_end_at_date" ).datepicker(optionsDate);
+    $( ".datepicker" ).datepicker(optionsDate);
+    $('.js-sortable-connected').sortable({
+            forcePlaceholderSize: true,
+            connectWith: '.js-connected',
+            handle: '.js-handle',
+            items: ':not(.disabled)',
+            placeholderClass: 'border border-yellow bg-blue mb1'
+    });
+    $('.js-sortable-connected').on('sortupdate', function(e, obj){
+        if (obj.endparent[0].id == 'liste-actif'){
+            $('#liste-actif').children('li:not(.muted)').each(function (i) {
+                this.children[0].value = i+1;
+            });
+        }
+        else {
+            obj.item[0].children[0].value = 0;
+        }
+    });
+</script>
+    {% block extrascript %}
+    {% endblock %}
+{% endblock %}

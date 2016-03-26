@@ -1,0 +1,58 @@
+{% extends 'layout_site.html.twig' %}
+{% set active = 'homepage' %}
+
+{% block title %}
+    Toutes l'actualités {{ category.title }} | acv-verdun.fr
+{% endblock %}
+
+{% block titre_page %}
+    <h1>{{ category.title }}</h1>
+{% endblock %}
+
+{% block description %}
+   Toutes l'actualités {{ category.title }} du club cycliste ACV de verdun sur le doubs.
+{% endblock %}
+
+{% block suite_crumbs %}
+    <li><a href="{{ path('cat', {'abrev_cat': category.abrev }) }}">{{ category.title }}</a></li>
+{% endblock %}           
+
+{% block content %}
+    {% for actualite in groupedNewestActualites %}
+        <div class="panel-box">
+            <div class="titles">
+                 <a class="" href="{{ path('actualite', {'actualite': actualite.id}) }}"><h4>{{ actualite.title|e }}</h4>
+                 <span class="tag-course">{% for category in actualite.categories %}
+                    <span class="label label-default">{{ category.category.abrev }}</span>
+                {% endfor %}</span>
+                </a>
+            </div>
+            <div class="post-item single-news">
+                <div class="row">
+                    <div class="col-md-12">
+                        <p class="data-info"><i class="fa fa-clock-o"></i> {{ actualite.createdAt|date("d/m/Y") }}</p>
+                        {{ infosites('article_tracking_partage')|replace({'((url))': path('actualite', {'actualite': actualite.id}), '((title))': actualite.title|e }) | raw }}
+                    </div>
+                    <div class="col-md-12 padding-top-mini">
+                        {{ actualite.contenu|circuitFilter|raw }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+    
+    {% include "pagination.html.twig" %}
+    
+    <!--<script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES * * */
+        var disqus_shortname = 'acvverdunfr';
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function () {
+            var s = document.createElement('script'); s.async = true;
+            s.type = 'text/javascript';
+            s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+            (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+        }());
+    </script>-->
+{% endblock %}

@@ -1,0 +1,52 @@
+{% extends 'layout_admin.html.twig' %}
+
+{% block menu %}
+<nav class="mainmenu">
+    <div class="container">
+        <ul id="menu" class="sf-menu ">
+            <li>
+                <a href="{{ path('admin_actualites') }}">{{ 'Article'|trans }}</a>
+            </li>
+            <li>
+                <a href="{{ path('admin_albumPhotos') }}">{{ 'Album Photo'|trans }}</a>
+            </li>
+            <li>
+                <a href="{{ path('admin_courses') }}">{{ 'Course'|trans }}</a>
+            </li>
+            <li>
+                <a href="{{ path('admin_entrainements') }}">{{ 'Circuit'|trans }}</a>
+            </li>
+            <li>
+                <a href="{{ path('admin_pages') }}">{{ 'Pages'|trans }}</a>
+            </li>
+            <li>
+                <a href="{{ path('admin_widgets') }}">{{ 'Widgets'|trans }}</a>
+            </li>
+            <li>
+                <a href="{{ path('admin_categories') }}">{{ 'Categories'|trans }}</a>
+            </li>
+            <li>
+                <a href="{{ path('admin_services') }}">{{ 'Services externes'|trans }}</a>
+            </li>
+            {% if is_granted('ROLE_ADMIN') %}
+                <li>
+                    <a href="{{ path('admin_users') }}">{{ 'Utilisateurs'|trans }}</a>
+                </li>
+                <li>
+                    <a href="{{ path('admin_infosites') }}">{{ 'Information du site'|trans }}</a>
+                </li>
+            {% endif %}
+        </ul>
+    </div>
+</nav>
+{% endblock %}
+
+{% block content %}
+{% endblock %}
+
+{% block titre_page %}
+    <h1>Single News</h1>
+{% endblock %}
+
+{% block extrascript %}
+{% endblock %}

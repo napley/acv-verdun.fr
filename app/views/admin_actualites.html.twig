@@ -1,0 +1,40 @@
+{% extends 'admin_layout.html.twig' %}
+{% set active = 'admin' %}
+{% set adminActive = 'actualites' %}
+
+{% block titre_page %}
+    <h1>Gestion des articles</h1>
+{% endblock %}
+
+{% block content %}
+    <div id="main" role="main" class="container">
+        <a href="{{ path('admin_actualite_add') }}" class="btn btn-inverse">{{ 'Ajouter un article'|trans }}</a>
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th> {{ 'Titre'|trans }} </th>
+                    <th> {{ 'Date de création'|trans }} </th>
+                    <th> {{ 'Operations'|trans }} </th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for actualite in actualites %}
+                    <tr>
+                        <td> {{ actualite.title|e }} </td>
+                        <td> {{ actualite.createdAt|date('Y-m-d H:i') }} </td>
+                        <td>
+                            <a href="{{ path('admin_actualite_edit', {'actualite': actualite.id}) }}">Modifier</a> / 
+                            <a href="{{ path('admin_actualite_delete', {'actualite': actualite.id}) }}" onclick="return confirm('Etes vous sur de vouloir le supprimer ?')"> Supprimer</a>
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="4">{{ 'Aucun article a été crée.'|trans }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        {% include "pagination.html.twig" %}
+    </div>
+{% endblock %}

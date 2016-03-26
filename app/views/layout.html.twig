@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="fr">
+<head>
+    {% block head %}{% endblock %}
+</head>
+<body>
+    
+    <div id="layout" class="layout-semiboxed">
+        <header>
+            <!-- End headerbox-->
+            <div class="headerbox">
+                <div class="container">
+                    <div class="row">
+                        <!-- Logo-->
+                        <div class="col-md-3 logo">
+                            <a title="Retour à l'accueil" href="/">                            
+                                <img class="logo_img" alt="Logo" src="{{ infosites('logo_site') }}">
+                            </a>
+                        </div>
+                        <!-- End Logo-->
+                        <div class="col-md-6 ban hidden-sm hidden-xs">
+                                <img class="img-responsive" alt="" src="{{ infosites('banniere_center_site') }}">
+                        </div>
+
+                        <!-- Adds Header-->
+                        <div class="col-md-3 adds hidden-sm hidden-xs">
+                                <img class="img-responsive" alt="" src="{{ infosites('banniere_site') }}">
+                        </div>
+                        <!-- End Adds Header-->
+                    </div>
+                </div>
+            </div>
+            <!-- End headerbox-->  
+
+            <!-- mainmenu-->
+            <div id="undefined-sticky-wrapper" class="sticky-wrapper">
+                {% block menu %}{% endblock %}
+            </div>
+            <!-- End mainmenu-->
+        </header>
+
+        <section class="section-title img-news">
+            <div class="overlay-bg"></div>
+            <div class="container">
+                {% block titre_page %}{% endblock %}
+            </div>
+        </section>
+
+
+        <section class="content-info">
+            
+            {% block crumbs %}
+            {% endblock %}
+            
+            <div class="container padding-top">
+                <div class="row">
+                    {% block layout_content %}
+                    {% endblock %}
+                    
+                </div>
+            </div>
+
+
+        </section>
+
+        <div class="footer-down">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-5">
+                        <p>&copy; 2015 ACV</p>
+                    </div>
+                    <div class="col-md-7">
+                        <!-- Nav Footer-->
+                        <ul class="nav-footer">          
+                            {% for page in orderpage %}
+                                <li>
+                                    <a href="{{ page['link'] }}">{{ page['name'] }}</a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                        <!-- End Nav Footer-->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% block javscript %}
+    {% endblock %}
+    
+</body>
+</html>
