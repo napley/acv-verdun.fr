@@ -1,5 +1,14 @@
 $(document).ready(function() {
-    
+    $(".single-carousel").owlCarousel({
+        items : 1,
+        autoPlay: true,  
+        navigation : true,
+        autoHeight : true,
+        slideSpeed : 400,
+        singleItem: true,
+        pagination : false
+    });
+        
     $("#menu").tinyNav({
         active: 'selected', // String: Set the "active" class
         header: 'Menu', // String: Specify text for "header" and show header instead of the active item

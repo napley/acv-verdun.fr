@@ -84,17 +84,21 @@ class CategoryWidgetRepository implements RepositoryInterface
      */
     public function clean($categoriesId, $widgetId)
     {
-        foreach ($categoriesId as $categoryId) {
-            $existCatAct = $this->findByCategoryAndWidget($categoryId, $widgetId);
-            if (empty($existCatAct)) {
-                $this->saveWithId(['category_id' => $categoryId, 'widget_id' => $widgetId]);
+        if (!empty($categoriesId)){
+            foreach ($categoriesId as $categoryId) {
+                $existCatAct = $this->findByCategoryAndWidget($categoryId, $widgetId);
+                if (empty($existCatAct)) {
+                    $this->saveWithId(['category_id' => $categoryId, 'widget_id' => $widgetId]);
+                }
             }
         }
         
         $categoriesWidget = $this->findAllByWidget($widgetId, 1000, 0, ['category_widget_id' => 'DESC']);
-        foreach ($categoriesWidget as $categoryWidget) {
-            if (!in_array($categoryWidget->getCategory()->getId(), $categoriesId)) {
-                $this->delete($categoryWidget->getId());
+        if (!empty($categoriesWidget)){
+            foreach ($categoriesWidget as $categoryWidget) {
+                if (!in_array($categoryWidget->getCategory()->getId(), $categoriesId)) {
+                    $this->delete($categoryWidget->getId());
+                }
             }
         }
     }

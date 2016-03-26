@@ -51,7 +51,6 @@ class IndexController
         }
         
         $paramRoute['abrev_cat'] = $category->getAbrev();
-        var_dump($paramRoute);
 
         $data = array(
             'groupedNewestActualites' => $newestActualites,

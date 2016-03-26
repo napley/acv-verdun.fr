@@ -53,6 +53,7 @@ $app["twig"] = $app->share($app->extend("twig", function (\Twig_Environment $twi
     $twig->addExtension(new MusicBox\Extension\OrderWidget($app));
     $twig->addExtension(new MusicBox\Extension\UnderPages($app));
     $twig->addExtension(new MusicBox\Extension\Pages($app));
+    $twig->addExtension(new MusicBox\Extension\LastAlbum($app));
 
     return $twig;
 }));

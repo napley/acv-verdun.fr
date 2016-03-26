@@ -31,8 +31,10 @@
                     <tr>
                         <td> {{ widget.title|e }} </td>
                         <td>
-                            <a href="{{ path('admin_widget_edit', {'widget': widget.id}) }}">Modifier</a> / 
+                            <a href="{{ path('admin_widget_edit', {'widget': widget.id}) }}">Modifier</a>
+                            {% if widget.locked == false %}/ 
                             <a href="{{ path('admin_widget_delete', {'widget': widget.id}) }}" onclick="return confirm('Etes vous sur de vouloir le supprimer ?')">Supprimer</a>
+                            {% endif %}
                         </td>
                     </tr>
                 {% else %}

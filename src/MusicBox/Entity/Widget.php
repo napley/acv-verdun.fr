@@ -52,6 +52,13 @@ class Widget
      * @var boolean
      */
     protected $onCats;
+    
+    /**
+     * locked id.
+     *
+     * @var boolean
+     */
+    protected $locked;
 
 
     public function getId()
@@ -150,5 +157,15 @@ class Widget
     public function setCategories($categories)
     {
         $this->categories = $categories;
+    }
+    
+    public function getLocked()
+    {
+        return $this->locked;
+    }
+
+    public function setLocked($locked)
+    {
+        $this->locked = $locked;
     }
 }

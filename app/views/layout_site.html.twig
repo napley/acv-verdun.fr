@@ -8,6 +8,7 @@
     <meta name="keywords" content="{{ infosites('mot_cle_site')|trans  }}" />
     <link href="{{ app.request.basepath }}/css/bootstrap.css" rel="stylesheet" media="screen">
     <link href="{{ app.request.basepath }}/css/fancybox/jquery.fancybox.css" rel="stylesheet" media="screen">
+    <link href="{{ app.request.basepath }}/css/carousel.css" rel="stylesheet" media="screen">
     <link href="{{ app.request.basepath }}/css/main.css" rel="stylesheet" type='text/css'>
     <link rel="stylesheet" href="{{ app.request.basepath }}/css/font-awesome.min.css">
 {% endblock %}
@@ -75,7 +76,6 @@
             </form>   
         </div>-->
         
-                   
         {% if category is defined %}
             {% set param = category.id %}
         {% else %}
@@ -83,39 +83,12 @@
         {% endif %}
         
         {% for orderwidget in orderwidgets(param) %}
-            {{ widgets(orderwidget.title) }}
+            {% if orderwidget.locked == true %}
+            {{ include('part/widget_' ~ orderwidget.id ~ '.html.twig') }}
+            {% else %}
+            {{ include('part/widget_default.html.twig') }}
+            {% endif %}
         {% endfor %}
-        
-        {#{{ widgets('partenaire') }}
-        {{ widgets('Message') }}
-        {% if category is defined %}
-            {% set courses = courses.findNextCourse({'category_id': category.id}) %}
-        {% else %}
-            {% set courses = courses.findNextCourse() %}
-        {% endif %}
-        {% if courses|length > 0 %}
-            <div class="panel-box">
-                <div class="titles">
-                    <h4>Prochaine courses {% if category is defined %}{{ category.title }}{% endif %}</h4>
-                </div>
-                <div class="row">
-                    <div class="col-md-12">
-                        <dl class="liste-next-course">
-                            {% for course in courses %}
-                                <dt>{% if course.link != '' %}<a target="_blank" href="{{ course.link }}">{% endif %}{{ course.title|e }}{% if course.link is defined %}</a>{% endif %}
-                                <span class="tag-course">{% for category in course.categories %}
-                                    <span class="label label-default">{{ category.category.abrev }}</span>
-                                {% endfor %}</span>
-                            </dt>
-                            <dd>{{ course.startAt|date("d/m/Y H:i") }} - {{ course.endAt|date("d/m/Y H:i") }}</dd>
-                            {% endfor %}
-                        </dl>
-                    </div>
-                </div>
-            </div>
-        {% endif %}
-        {{ widgets('Autre info') }}
-        #}
     </aside>
 {% endblock %}
 
@@ -125,6 +98,7 @@
     <script src="{{ app.request.basepath }}/js/hoverIntent.js"></script>
     <script src="{{ app.request.basepath }}/js/superfish.js"></script>
     <script src="{{ app.request.basepath }}/js/tinynav.min.js"></script>
+    <script src="{{ app.request.basepath }}/js/carousel.js"></script>
     {% block extrascript %}
     {% endblock %}
     <script src="{{ app.request.basepath }}/js/main.js"></script>

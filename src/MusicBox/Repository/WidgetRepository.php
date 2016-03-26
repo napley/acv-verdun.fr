@@ -48,7 +48,8 @@ class WidgetRepository implements RepositoryInterface
             'contenu' => $widget->getContenu(),
             'rank' => $widget->getRank(),
             'on_pages' => $widget->getOnPages(),
-            'on_cats' => $widget->getOnCats()
+            'on_cats' => $widget->getOnCats(),
+            'locked' => $widget->getLocked()
         );
 
         if ($widget->getId()) {
@@ -70,7 +71,12 @@ class WidgetRepository implements RepositoryInterface
      */
     public function delete($widget)
     {
-        return $this->db->delete('widgets', array('widget_id' => $widget->getId()));
+        if (!$widget->getLocked()) {
+            return $this->db->delete('widgets', array('widget_id' => $widget->getId()));
+        }
+        else {
+            return true;
+        }
     }
 
     /**
@@ -198,6 +204,7 @@ class WidgetRepository implements RepositoryInterface
         $widget->setRank($widgetData['rank']);
         $widget->setOnPages((bool) $widgetData['on_pages']);
         $widget->setOnCats((bool) $widgetData['on_cats']);
+        $widget->setLocked((bool) $widgetData['locked']);
         
         if (!empty($widgetData['course_id'])) {
             $categories = $this->app['repository.categoryWidget']->findAllByCourse($widgetData['widget_id']);
