@@ -1,3 +1,5 @@
+Projet basé sur le projet Music box :
+
 Musicbox
 ========
 MusicBox is a portal based on the Silex framework, built for PHP 5.3 and MySQL 5.
