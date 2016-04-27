@@ -47,6 +47,7 @@ header {
 
 .ban {
     text-align: center;
+    padding: 0px;
 }
 .ban img {
     display: inline;

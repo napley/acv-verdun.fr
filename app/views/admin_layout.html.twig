@@ -4,6 +4,7 @@
 <nav class="mainmenu">
     <div class="container">
         <ul id="menu" class="sf-menu ">
+            {% if is_granted('ROLE_USER') %}
             <li>
                 <a href="{{ path('admin_actualites') }}">{{ 'Article'|trans }}</a>
             </li>
@@ -13,9 +14,9 @@
             <li>
                 <a href="{{ path('admin_courses') }}">{{ 'Course'|trans }}</a>
             </li>
-            <li>
+            <!--<li>
                 <a href="{{ path('admin_entrainements') }}">{{ 'Circuit'|trans }}</a>
-            </li>
+            </li>-->
             <li>
                 <a href="{{ path('admin_pages') }}">{{ 'Pages'|trans }}</a>
             </li>
@@ -28,6 +29,7 @@
             <li>
                 <a href="{{ path('admin_services') }}">{{ 'Services externes'|trans }}</a>
             </li>
+            {% endif %}
             {% if is_granted('ROLE_ADMIN') %}
                 <li>
                     <a href="{{ path('admin_users') }}">{{ 'Utilisateurs'|trans }}</a>
@@ -35,6 +37,11 @@
                 <li>
                     <a href="{{ path('admin_infosites') }}">{{ 'Information du site'|trans }}</a>
                 </li>
+            {% endif %}
+            {% if is_granted('ROLE_USER') %}
+            <li>
+                <a href="{{ path('logout') }}">{{ 'Déconnexion'|trans }}</a>
+            </li>
             {% endif %}
         </ul>
     </div>

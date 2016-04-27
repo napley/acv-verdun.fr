@@ -122,6 +122,7 @@ $app['soundcloud'] = $app->share(function ($app) {
 $app->before(function (Request $request) use ($app) {
     $protected = array(
         '/admin/users/' => 'ROLE_ADMIN',
+        '/admin/infosites/' => 'ROLE_ADMIN',
         'admin/' => 'ROLE_USER',
     );
     $path = $request->getPathInfo();

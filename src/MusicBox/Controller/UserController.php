@@ -53,6 +53,6 @@ class UserController
     public function logoutAction(Request $request, Application $app)
     {
         $app['session']->clear();
-        return $app->redirect($app['url_generator']->generate('homepage'));
+        return $app->redirect($app['url_generator']->generate('login'));
     }
 }

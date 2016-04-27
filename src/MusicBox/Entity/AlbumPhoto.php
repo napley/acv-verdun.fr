@@ -74,11 +74,12 @@ class AlbumPhoto
     
     public function getFirstPhoto()
     {
+        $preDir = __DIR__."/../../../..";
         $firstFile = '';
-        $dir = "./server/php/files/" . $this->id . '/thumbnail';
-        $files = scandir($dir);
+        $dir = "/update/web/server/php/files/" . $this->id . '/thumbnail';
+        $files = scandir($preDir . $dir);
         if (empty($files)) {
-            $dir = "./server/php/files/" . $this->id;
+            $dir = "/update/web/server/php/files/" . $this->id;
             $files = scandir($dir);
         }
         

@@ -91,13 +91,13 @@ class CategoryWidgetRepository implements RepositoryInterface
                     $this->saveWithId(['category_id' => $categoryId, 'widget_id' => $widgetId]);
                 }
             }
-        }
         
-        $categoriesWidget = $this->findAllByWidget($widgetId, 1000, 0, ['category_widget_id' => 'DESC']);
-        if (!empty($categoriesWidget)){
-            foreach ($categoriesWidget as $categoryWidget) {
-                if (!in_array($categoryWidget->getCategory()->getId(), $categoriesId)) {
-                    $this->delete($categoryWidget->getId());
+            $categoriesWidget = $this->findAllByWidget($widgetId, 1000, 0, ['category_widget_id' => 'DESC']);
+            if (!empty($categoriesWidget)){
+                foreach ($categoriesWidget as $categoryWidget) {
+                    if (!in_array($categoryWidget->getCategory()->getId(), $categoriesId)) {
+                        $this->delete($categoryWidget->getId());
+                    }
                 }
             }
         }

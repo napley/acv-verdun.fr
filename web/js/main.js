@@ -1,13 +1,15 @@
 $(document).ready(function() {
-    $(".single-carousel").owlCarousel({
-        items : 1,
-        autoPlay: true,  
-        navigation : true,
-        autoHeight : true,
-        slideSpeed : 400,
-        singleItem: true,
-        pagination : false
-    });
+    if ( $( ".single-carousel" ).length ) {
+        $(".single-carousel").owlCarousel({
+            items : 1,
+            autoPlay: true,  
+            navigation : true,
+            autoHeight : true,
+            slideSpeed : 400,
+            singleItem: true,
+            pagination : false
+        });
+    }
         
     $("#menu").tinyNav({
         active: 'selected', // String: Set the "active" class
