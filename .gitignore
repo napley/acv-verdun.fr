@@ -4,6 +4,10 @@ app/db_dump.sql
 web/less/*
 web/scss/*
 web/img/*
+web/images/*
+web/kcfinder/cache*
+web/kcfinder/upload*
+web/server/php/files*
 acv-verdun.new.zip
 
 # Cache and logs (Symfony2)
