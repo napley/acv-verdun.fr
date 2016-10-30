@@ -66,49 +66,4 @@ class AlbumPhotoController
         return $app['twig']->render('albumPhoto.html.twig', $data);
     }
 
-    public function likeAction(Request $request, Application $app)
-    {
-        $artist = $request->attributes->get('artist');
-        $token = $app['security']->getToken();
-        $user = $token->getUser();
-        if (!$artist) {
-            $app->abort(404, 'The requested artist was not found.');
-        }
-        if ($user == 'anon.') {
-            // Only logged-in users can comment.
-            return;
-        }
-
-        // Don't allow the user to like the artist twice.
-        $existingLike = $app['repository.like']->findByArtistAndUser($artist->getId(), $user->getId());
-        if (!$existingLike) {
-            // Save the individual like record.
-            $like = new Like();
-            $like->setArtist($artist);
-            $like->setUser($user);
-            $app['repository.like']->save($like);
-
-            // Increase the counter on the artist.
-            $numLikes = $artist->getLikes();
-            $numLikes++;
-            $artist->setLikes($numLikes);
-            $app['repository.artist']->save($artist);
-        }
-        return '';
-    }
-
-    protected function sendNotification($comment, Application $app)
-    {
-        $artist = $comment->getArtist();
-        $user = $comment->getUser();
-        $messageBody = 'The following comment was posted by ' . $user->getUsername() . ":\n";
-        $messageBody .= $comment->getComment();
-        $message = \Swift_Message::newInstance()
-                ->setSubject('New comment posted for artist ' . $artist->getName())
-                ->setFrom(array($app['site_email']))
-                ->setTo(array($app['admin_email']))
-                ->setBody('The following comment was posted by :');
-        $app['mailer']->send($message);
-    }
-
 }

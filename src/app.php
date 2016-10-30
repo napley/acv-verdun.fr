@@ -59,9 +59,6 @@ $app["twig"] = $app->share($app->extend("twig", function (\Twig_Environment $twi
 }));
 
 // Register repositories.
-$app['repository.artist'] = $app->share(function ($app) {
-    return new MusicBox\Repository\ArtistRepository($app['db']);
-});
 $app['repository.actualite'] = $app->share(function ($app) {
     return new MusicBox\Repository\ActualiteRepository($app['db'], $app);
 });
@@ -106,12 +103,6 @@ $app['repository.categoryAlbumPhoto'] = $app->share(function ($app) {
 });
 $app['repository.user'] = $app->share(function ($app) {
     return new MusicBox\Repository\UserRepository($app['db'], $app['security.encoder.digest']);
-});
-$app['repository.comment'] = $app->share(function ($app) {
-    return new MusicBox\Repository\CommentRepository($app['db'], $app['repository.artist'], $app['repository.user']);
-});
-$app['repository.like'] = $app->share(function ($app) {
-    return new MusicBox\Repository\LikeRepository($app['db'], $app['repository.artist'], $app['repository.user']);
 });
 // Register custom services.
 $app['soundcloud'] = $app->share(function ($app) {

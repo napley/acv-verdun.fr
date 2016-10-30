@@ -2,7 +2,6 @@
 
 namespace MusicBox\Controller;
 
-use MusicBox\Entity\Artist;
 use Silex\Application;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\Request;

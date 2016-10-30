@@ -9,31 +9,6 @@ use Symfony\Component\HttpFoundation\Request;
 
 class UserController
 {
-    public function meAction(Request $request, Application $app)
-    {
-        $token = $app['security']->getToken();
-        $user = $token->getUser();
-        $now = new \DateTime();
-        $interval = $now->diff($user->getCreatedAt());
-        $memberSince = $interval->format('%d days %H hours %I minutes ago');
-        $limit = 60;
-        $likes = $app['repository.like']->findAllByUser($user->getId(), $limit);
-        // Divide artists into groups of 6.
-        $groupSize = 6;
-        $groupedLikes = array();
-        $progress = 0;
-        while ($progress < $limit) {
-            $groupedLikes[] = array_slice($likes, $progress, $groupSize);
-            $progress += $groupSize;
-        }
-
-        $data = array(
-            'user' => $user,
-            'memberSince' => $memberSince,
-            'groupedLikes' => $groupedLikes,
-        );
-        return $app['twig']->render('profile.html.twig', $data);
-    }
 
     public function loginAction(Request $request, Application $app)
     {
