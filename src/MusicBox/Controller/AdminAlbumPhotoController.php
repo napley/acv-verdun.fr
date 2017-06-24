@@ -18,7 +18,7 @@ class AdminAlbumPhotoController
         $limit = 15;
         $total = $app['repository.albumPhoto']->getCount();
         $numPages = ceil($total / $limit);
-        $currentPage = $request->query->get('albumPhoto', 1);
+        $currentPage = $request->query->get('page', 1);
         $currentPage = ($currentPage < 1 ? 1 : $currentPage);
         $offset = ($currentPage - 1) * $limit;
         $albumPhotos = $app['repository.albumPhoto']->findAll($limit, $offset);

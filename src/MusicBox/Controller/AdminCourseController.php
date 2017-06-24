@@ -16,7 +16,7 @@ class AdminCourseController
         $limit = 15;
         $total = $app['repository.course']->getCount();
         $numPages = ceil($total / $limit);
-        $currentPage = $request->query->get('course', 1);
+        $currentPage = $request->query->get('page', 1);
         $currentPage = ($currentPage<1 ? 1 : $currentPage);
         $offset = ($currentPage - 1) * $limit;
         $courses = $app['repository.course']->findAll($limit, $offset);

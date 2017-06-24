@@ -16,7 +16,7 @@ class AdminEntrainementController
         $limit = 15;
         $total = $app['repository.entrainement']->getCount();
         $numPages = ceil($total / $limit);
-        $currentPage = $request->query->get('entrainement', 1);
+        $currentPage = $request->query->get('page', 1);
         $currentPage = ($currentPage<1 ? 1 : $currentPage);
         $offset = ($currentPage - 1) * $limit;
         $entrainements = $app['repository.entrainement']->findAll($limit, $offset);

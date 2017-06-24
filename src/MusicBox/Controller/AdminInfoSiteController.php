@@ -16,7 +16,7 @@ class AdminInfoSiteController
         $limit = 30;
         $total = $app['repository.infosite']->getCount();
         $numPages = ceil($total / $limit);
-        $currentPage = $request->query->get('infosite', 1);
+        $currentPage = $request->query->get('page', 1);
         $currentPage = ($currentPage<1 ? 1 : $currentPage);
         $offset = ($currentPage - 1) * $limit;
         $infosites = $app['repository.infosite']->findAll($limit, $offset);

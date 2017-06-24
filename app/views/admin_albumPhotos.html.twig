@@ -43,6 +43,9 @@
                 {% endfor %}
             </tbody>
         </table>
+
+        {% include "pagination.html.twig" %}
+
             <h2>Album Photo à migrer</h2>
             
             <table class="table table-hover">
@@ -69,7 +72,5 @@
                     {% endfor %}
                 </tbody>
             </table>
-
-        {% include "pagination.html.twig" %}
     </div>
 {% endblock %}

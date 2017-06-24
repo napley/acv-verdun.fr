@@ -16,7 +16,7 @@ class AdminServiceController
         $limit = 30;
         $total = $app['repository.service']->getCount();
         $numPages = ceil($total / $limit);
-        $currentPage = $request->query->get('service', 1);
+        $currentPage = $request->query->get('page', 1);
         $currentPage = ($currentPage<1 ? 1 : $currentPage);
         $offset = ($currentPage - 1) * $limit;
         $services = $app['repository.service']->findAll($limit, $offset);

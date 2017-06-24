@@ -16,7 +16,7 @@ class AdminWidgetController
         $limit = 15;
         $total = $app['repository.widget']->getCount();
         $numPages = ceil($total / $limit);
-        $currentPage = $request->query->get('widget', 1);
+        $currentPage = $request->query->get('page', 1);
         $currentPage = ($currentPage<1 ? 1 : $currentPage);
         $offset = ($currentPage - 1) * $limit;
         $widgets = $app['repository.widget']->findAll($limit, $offset);
