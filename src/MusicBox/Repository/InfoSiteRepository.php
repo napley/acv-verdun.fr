@@ -29,6 +29,7 @@ class InfoSiteRepository implements RepositoryInterface
     {
         $infositeData = array(
             'nom' => $infosite->getNom(),
+            'description' => $infosite->getDescription(),
             'valeur' => $infosite->getValeur(),
             'img' => $infosite->getImg()
         );
@@ -134,6 +135,7 @@ class InfoSiteRepository implements RepositoryInterface
         $infosite = new InfoSite();
         $infosite->setId($infositeData['infosite_id']);
         $infosite->setNom($infositeData['nom']);
+        $infosite->setDescription($infositeData['description']);
         $infosite->setValeur($infositeData['valeur']);
         $infosite->setImg($infositeData['img']);
         return $infosite;

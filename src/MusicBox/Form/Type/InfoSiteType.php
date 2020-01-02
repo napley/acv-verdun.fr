@@ -15,6 +15,10 @@ class InfoSiteType extends AbstractType
                 'constraints' => new Assert\NotBlank(),
                 'label'  => 'Nom'
             ))
+            ->add('description', 'text', array(
+                'label'  => 'Description',
+                'required' => false
+            ))
             ->add('valeur', 'textarea', array(
                 'required' => false
             ))

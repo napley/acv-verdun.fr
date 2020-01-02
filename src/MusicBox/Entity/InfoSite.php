@@ -17,6 +17,13 @@ class InfoSite
      * @var string
      */
     protected $nom;
+
+    /**
+     * Title.
+     *
+     * @var string
+     */
+    protected $description;
     
     /**
      * Abrégé.
@@ -55,6 +62,22 @@ class InfoSite
     public function setNom($nom)
     {
         $this->nom = $nom;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDescription()
+    {
+        return $this->description;
+    }
+
+    /**
+     * @param string $description
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
     }
 
     /**
