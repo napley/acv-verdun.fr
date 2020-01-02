@@ -23,6 +23,7 @@ CKEDITOR.editorConfig = function( config ) {
 		{ name: 'basicstyles', items: [ 'Bold', 'Italic', 'Underline', 'Strike', '-', 'RemoveFormat' ] },
 		{ name: 'paragraph', items: [ 'NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'Blockquote' ] },
 		{ name: 'styles', items: [ 'Styles', 'Format' ] },
+		{ name: 'colors', items: [ 'TextColor', 'BGColor' ] },
 		{ name: 'about', items: [ 'About' ] }
 	];
 

@@ -38,7 +38,8 @@ class ActualiteRepository implements RepositoryInterface
             'title' => $actualite->getTitle(),
             'description' => $actualite->getDescription(),
             'contenu' => $actualite->getContenu(),
-            'affichage' => $actualite->getAffichage()
+            'affichage' => $actualite->getAffichage(),
+            'home' => $actualite->getHome()
         );
 
         if ($actualite->getId()) {
@@ -73,6 +74,15 @@ class ActualiteRepository implements RepositoryInterface
      */
     public function getCount() {
         return $this->db->fetchColumn('SELECT COUNT(actualite_id) FROM actualites');
+    }
+
+    /**
+     * Returns the total number of actualites.
+     *
+     * @return integer The total number of actualites.
+     */
+    public function getCountHome() {
+        return $this->db->fetchColumn('SELECT COUNT(actualite_id) FROM actualites WHERE home = 1');
     }
     
     /**
@@ -121,6 +131,28 @@ class ActualiteRepository implements RepositoryInterface
     public function findAllAffiched($conditions = array(), $limit = null, $offset = 0, $orderBy = array())
     {
         $conditions['affichage'] = 1;
+        
+        return $this->getActualites($conditions, $limit, $offset, $orderBy);
+    }
+
+    /**
+     * Returns a collection of category_actualite for the given category id.
+     *
+     * @param integer $categoryId
+     *   The category id.
+     * @param integer $limit
+     *   The number of category_actualite to return.
+     * @param integer $offset
+     *   The number of category_actualite to skip.
+     * @param array $orderBy
+     *   Optionally, the order by info, in the $column => $direction format.
+     *
+     * @return array A collection of category_actualite, keyed by category_actualite id.
+     */
+    public function findAllAffichedHome($conditions = array(), $limit = null, $offset = 0, $orderBy = array())
+    {
+        $conditions['affichage'] = 1;
+        $conditions['home'] = 1;
         
         return $this->getActualites($conditions, $limit, $offset, $orderBy);
     }
@@ -289,6 +321,7 @@ class ActualiteRepository implements RepositoryInterface
         $actualite = new Actualite();
         $actualite->setId($actualiteData['actualite_id']);
         $actualite->setAffichage((bool) $actualiteData['affichage']);
+        $actualite->setHome((bool) $actualiteData['home']);
         $actualite->setUser($user);
         $actualite->setTitle($actualiteData['title']);
         $actualite->setDescription($actualiteData['description']);

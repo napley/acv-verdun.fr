@@ -26,6 +26,10 @@ class ActualiteType extends AbstractType
                 'label'    => 'Afficher cette Article',
                 'required' => false
             ))
+            ->add('home', 'checkbox', array(
+                'label'    => 'Afficher sur la page d\'Accueil',
+                'required' => false
+            ))
             ->add('Enregistrer', 'submit');
     }
 

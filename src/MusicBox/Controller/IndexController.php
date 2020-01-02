@@ -12,14 +12,14 @@ class IndexController
     public function indexAction(Request $request, Application $app)
     {
         $limit = 10;
-        $total = $app['repository.actualite']->getCount();
+        $total = $app['repository.actualite']->getCountHome();
         $numPages = ceil($total / $limit);
         $currentPage = $request->query->get('page', 1);
         $currentPage = ($currentPage<1 ? 1 : $currentPage);
         $offset = ($currentPage - 1) * $limit;
         
         $newestOrderBy = array('created_at' => 'DESC');
-        $newestActualites = $app['repository.actualite']->findAllAffiched(null, $limit, $offset, $newestOrderBy);
+        $newestActualites = $app['repository.actualite']->findAllAffichedHome(null, $limit, $offset, $newestOrderBy);
 
         $data = array(
             'groupedNewestActualites' => $newestActualites,

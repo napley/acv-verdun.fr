@@ -38,7 +38,15 @@
 <script src="{{ app.request.basepath }}/js/html5.sortable.js"></script>
 <script src="{{ app.request.basepath }}/js/main.js"></script>
 <script type="text/javascript">
-    $( 'textarea.editor' ).ckeditor();
+    $( 'textarea.editor' ).ckeditor(
+        { 
+            extraPlugins : 'autogrow',
+            autoGrow_minHeight : 200,
+            autoGrow_maxHeight : 600,
+            autoGrow_bottomSpace : 50 
+        }
+    );
+     
 
     $.datepicker.setDefaults($.datepicker.regional['fr']);
     var optionsDate = {

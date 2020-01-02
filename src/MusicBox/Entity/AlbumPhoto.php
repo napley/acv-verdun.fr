@@ -74,12 +74,12 @@ class AlbumPhoto
     
     public function getFirstPhoto()
     {
-        $preDir = __DIR__."/../../../..";
+        $preDir = __DIR__."/../../../../update/web";
         $firstFile = '';
-        $dir = "/update/web/server/php/files/" . $this->id . '/thumbnail';
+        $dir = "/server/php/files/" . $this->id . '/thumbnail';
         $files = scandir($preDir . $dir);
         if (empty($files)) {
-            $dir = "/update/web/server/php/files/" . $this->id;
+            $dir = "/server/php/files/" . $this->id;
             $files = scandir($dir);
         }
         
@@ -105,9 +105,9 @@ class AlbumPhoto
 
     public function getPhotos()
     {
-        $preDir = __DIR__."/../../../..";
-        $dirThumbnail = "/update/web/server/php/files/" . $this->id . '/thumbnail';
-        $dir = "/update/web/server/php/files/" . $this->id;
+        $preDir = __DIR__."/../../../../update/web";
+        $dirThumbnail = "/server/php/files/" . $this->id . '/thumbnail';
+        $dir = "/server/php/files/" . $this->id;
         
         $files = scandir($preDir.$dir);
         
@@ -127,9 +127,9 @@ class AlbumPhoto
 
     public function getNbPhotos()
     {
-        $preDir = __DIR__."/../../../..";
-        $dirThumbnail = "/update/web/server/php/files/" . $this->id . '/thumbnail';
-        $dir = "/update/web/server/php/files/" . $this->id;
+        $preDir = __DIR__."/../../../../update/web";
+        $dirThumbnail = "/server/php/files/" . $this->id . '/thumbnail';
+        $dir = "/server/php/files/" . $this->id;
         
         $files = scandir($preDir.$dir);
         

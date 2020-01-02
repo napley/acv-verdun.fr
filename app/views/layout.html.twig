@@ -2,7 +2,12 @@
 <html lang="fr">
     <head>
     {% block head %}{% endblock %}
-</head>
+    <style type="text/css">
+        .img-news {
+            background: rgba(0, 0, 0, 0) url("{{ infosites('big_banniere') }}") no-repeat scroll center {{ infosites('param_big_banniere') }} / 1004px ;
+        }
+    </style>
+    </head>
 <body>
 
     <div id="layout" class="layout-semiboxed">
@@ -82,7 +87,7 @@
             <div class="col-md-2">
                 <p>     
                     <script type="text/javascript" src="http://compteur.websiteout.net/js/13/0/9721/0">
-                    </script> 
+                    </script>
                 </p>
             </div>
 

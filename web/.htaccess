@@ -3,7 +3,7 @@ SetEnv REGISTER_GLOBALS 0
 SetEnv MAGIC_QUOTES 0
 SetEnv SESSION_AUTOSTART 0
 SetEnv ZEND_OPTIMIZER 1
-SetEnv PHP_VER 5_3 
+SetEnv PHP_VER 5_3
 AddType x-mapp-php5 .php
 
 <IfModule mod_rewrite.c>
@@ -13,4 +13,7 @@ AddType x-mapp-php5 .php
     #RewriteBase /musicbox
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteRule ^ index.php [L]
+
+    RewriteCond %{SERVER_PORT} 80
+    RewriteRule ^(.*)$ https://www.acv-verdun.fr/$1 [R,L]
 </IfModule>

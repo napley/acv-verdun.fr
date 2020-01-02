@@ -9,7 +9,7 @@
             <img src="{{ album.getFirstPhoto() }}" alt="" class="img-responsive">
             <div class="info-single-carousel">
                 <h4><a href="{{ path('albumPhoto', {'albumPhoto': album.id}) }}">{{ album.title }}</a></h4>
-                <p>{{ album.description }}</p>
+                <p>{{ album.description | raw }}</p>
             </div>
         </li>
         {% endfor %}

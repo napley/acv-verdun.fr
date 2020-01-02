@@ -17,6 +17,13 @@ class Actualite
      * @var boolean
      */
     protected $affichage;
+    
+    /**
+     * Article sur la home.
+     *
+     * @var boolean
+     */
+    protected $home;
 
 
     /**
@@ -101,6 +108,16 @@ class Actualite
     public function setAffichage($affichage)
     {
         $this->affichage = $affichage;
+    }
+
+    public function getHome()
+    {
+        return $this->home;
+    }
+
+    public function setHome($home)
+    {
+        $this->home = $home;
     }
 
     public function getTitle()

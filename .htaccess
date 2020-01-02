@@ -5,3 +5,8 @@ SetEnv SESSION_AUTOSTART 0
 SetEnv ZEND_OPTIMIZER 1
 SetEnv PHP_VER 5_3 
 AddType x-mapp-php5 .php
+
+
+RewriteEngine On
+RewriteCond %{SERVER_PORT} 80
+RewriteRule ^(.*)$ https://acv-verdun.fr/$1 [R,L]

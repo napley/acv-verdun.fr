@@ -1,3 +1,4 @@
+.idea/
 app/cache/*
 app/config/prod.php
 app/db_dump.sql
